@@ -374,6 +374,11 @@ option(ENABLE_LIBRARIES "Enable all external libraries by default" ON)
 # Increase stack size on Musl. We need big stack for our recursive-descend parser.
 if (USE_MUSL)
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,stack-size=2097152")
+
+    # musl uses tricky code to detect the stack size of the main thread with
+    # mremap(), but with stack protector you will get EFAULT.
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-stack-protector")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-stack-protector")
 endif ()
 
 include(cmake/dbms_glob_sources.cmake)
