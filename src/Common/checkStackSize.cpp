@@ -75,7 +75,7 @@ static size_t getStackSize(void ** out_address)
 
 #ifdef USE_MUSL
     /// Adjust stack size for the main thread under musl.
-    /// musl returns not the maximum avaiable stack, but current stack.
+    /// musl returns not the maximum available stack, but the current stack.
     ///
     /// TL;DR;
     ///
